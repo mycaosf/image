@@ -26,13 +26,8 @@ func ImageEncode(p *C.imageEncodeParam) C.int {
 		img = &image.Gray{Pix: data[:], Stride: w, Rect: rc}
 	case C.imageColorGray16:
 		img = &image.Gray16{Pix: data[:], Stride: w * 2, Rect: rc}
-	case C.imageColorRGB: {
-		buf := make([]byte, w * 4 * h)
-		for y := 0; y < h; y++ {
-			d := buf[w * 3 
-		}
-		img = &image.NRGBA{Pix: data[:], Stride: w * 4, Rect: rc}
-	}
+	case C.imageColorRGB:
+		img = &imageRGB{pix: data[:], stride: w * 3, rect: rc}
 	case C.imageColorRGBA:
 		img = &image.NRGBA{Pix: data[:], Stride: w * 4, Rect: rc}
 	case C.imageColorRGBA64:
